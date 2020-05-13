@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}View Blogs{% endblock %}
+{% block blogs_active %}active{% endblock %}
+
+{% block body %}
+<div class="blogs-container container-fluid">
+
+    <!-- blogs -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{ user.username }}'s blogs</h3>
+        </div>
+        {% if blogs %}
+            {% for blog in blogs %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+
+                        <img src="{{ blog.img.url }}" class="img-responsive"/>
+                        <div class="caption">
+                            <h2>{{ blog.title }}</h2>
+                            <h4>{{ blog.description }}</h4>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'blogs:add-blog' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add an Album
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

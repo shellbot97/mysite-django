@@ -3,6 +3,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+def content_file_name(instance, filename):
+    return '/'.join(['content', instance.user.username, filename])
+
+
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -11,6 +15,8 @@ class Category(models.Model):
     is_active = models.BooleanField(default=True)
     added_date = models.DateTimeField(default=datetime.now)
 
+    def __str__(self):
+        return self.name + ' - ' + self.category_slug
 
 class SubCategory(models.Model):
     name = models.CharField(max_length=50)
@@ -18,13 +24,16 @@ class SubCategory(models.Model):
     is_active = models.BooleanField(default=True)
     added_date = models.DateTimeField(default=datetime.now)
 
+    def __str__(self):
+        return self.name
+
 
 class Blog(models.Model):
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
     content = models.CharField(max_length=1000)
     user = models.ForeignKey(User, default=1, on_delete=models.SET_DEFAULT)
-    img = models.FileField()
+    img = models.FileField(upload_to=content_file_name)
     sub_category = models.ForeignKey(SubCategory, default=1, on_delete=models.SET_DEFAULT)
     is_active = models.BooleanField(default=True)
     added_date = models.DateTimeField(default=datetime.now)

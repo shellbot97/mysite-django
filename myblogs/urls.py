@@ -6,4 +6,5 @@ app_name = 'blogs'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('add', views.create_blog, name='add-blog'),
 ]
