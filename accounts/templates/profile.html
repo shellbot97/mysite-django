@@ -12,7 +12,12 @@
                 {{ user.first_name }}
                 {{ user.last_name }}
                 {{ user.email }}
+
+                <a href="{% url 'blogs:index' %}">
+                    <span>My blogs</span>&nbsp;
+                </a>
             </div>
+            <a></a>
         </div>
     </div>
 

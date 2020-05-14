@@ -5,8 +5,8 @@ from django.urls import path
 app_name = 'accounts'
 
 urlpatterns = [
-    path('login', views.login_user, name='login_user'),
+    path('', views.login_user, name='login_user'),  # default url (this will take user to the login page)
     path('logout', views.logout_user, name='logout_user'),
-    # path('', views.register, name='register'),
+    path('register', views.register, name='register'),
     path('profile', views.profile, name='profile'),
 ]

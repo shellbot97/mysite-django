@@ -14,13 +14,23 @@
             {% for blog in blogs %}
                 <div class="col-sm-4 col-lg-2">
                     <div class="thumbnail">
-
-                        <img src="{{ blog.img.url }}" class="img-responsive"/>
+                        {% if blog.img %}
+                            <a href="{% url 'blogs:blog-detail' blog.id %}">
+                                <img src="{{ blog.img.url }}" class="img-responsive"/>
+                            </a>
+                        {% else %}
+                             <a href="{% url 'blogs:blog-detail' blog.id %}">
+                                <h2>No Image</h2>
+                            </a>
+                        {% endif %}
                         <div class="caption">
                             <h2>{{ blog.title }}</h2>
                             <h4>{{ blog.description }}</h4>
 
                         </div>
+                        <a href="{% url 'blogs:blog-delete' blog.id %}">
+                           <span class="glyphicon glyphicon-trash"></span>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
@@ -37,4 +47,28 @@
     </div>
 
 </div>
+
+{% if blogs.has_other_pages %}
+  <ul class="pagination">
+    {% if blogs.has_previous %}
+      <li><a href="?page={{ blogs.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in blogs.paginator.page_range %}
+      {% if blogs.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if blogs.has_next %}
+      <li><a href="?page={{ blogs.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
 {% endblock %}

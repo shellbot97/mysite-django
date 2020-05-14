@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 def content_file_name(instance, filename):
-    return '/'.join(['content', instance.user.username, filename])
+    return '/'.join(['myblogs', instance.user.username, filename])
 
 
 # Create your models here.
@@ -18,6 +18,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name + ' - ' + self.category_slug
 
+
 class SubCategory(models.Model):
     name = models.CharField(max_length=50)
     category = models.ForeignKey(Category, default=1, on_delete=models.SET_DEFAULT)
@@ -29,11 +30,12 @@ class SubCategory(models.Model):
 
 
 class Blog(models.Model):
+    id = models.AutoField(primary_key=True, default=None)
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
     content = models.CharField(max_length=1000)
     user = models.ForeignKey(User, default=1, on_delete=models.SET_DEFAULT)
-    img = models.FileField(upload_to=content_file_name)
+    img = models.FileField(upload_to=content_file_name, blank=True, default='', null=True)
     sub_category = models.ForeignKey(SubCategory, default=1, on_delete=models.SET_DEFAULT)
     is_active = models.BooleanField(default=True)
     added_date = models.DateTimeField(default=datetime.now)

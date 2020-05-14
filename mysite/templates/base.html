@@ -25,7 +25,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">mysite</a>
+                <a class="navbar-brand" href="{% url 'accounts:profile' %}">mysite</a>
             </div>
 
             <!-- Items -->
@@ -33,10 +33,16 @@
                 <ul class="nav navbar-nav">
                      <li>
                         <a href="{% url 'blogs:add-blog' %}">
-                            <span class="glyphicon glyphicon-add" aria-hidden="true"></span>&nbsp; Add Blog
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Blog
                         </a>
                     </li>
                 </ul>
+                <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'blogs:index' %}">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="q" value="{{ request.GET.q }}">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search blogs</button>
+                </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="{% url 'accounts:logout_user' %}">

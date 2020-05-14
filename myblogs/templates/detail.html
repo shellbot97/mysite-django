@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <a href="{% url 'blogs:blog-update' blog.id %}">
+                        <span class="glyphicon glyphicon-edit">
+                            Edit
+                        </span>
+                    </a>
+                    {% if blog.img %}
+                        <img src="{{ blog.img.url }}" class="img-responsive">
+                    {% else %}
+                        <h2>No Image</h2>
+                    {% endif %}
+                    <h1>{{ blog.title }} <small>{{ blog.sub_category }}</small></h1>
+                    <h2>{{ blog.user }}</h2>
+                    <h3>{{ blog.content }}</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

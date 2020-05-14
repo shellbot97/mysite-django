@@ -21,9 +21,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blogs/', include('myblogs.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('', include('accounts.urls')),  # default url(this will take user to the login page)
 ]
 
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
