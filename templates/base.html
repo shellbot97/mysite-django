@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block head_title %}Mysite{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.ico' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'blogs:index'%}">mysite</a>
+        </div>
+        <div class="collapse navbar-collapse" id="topNavBar">
+          {% block nav_title %}
+            {% if user.is_authenticated %}
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+                <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
+                <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+              </ul>
+
+              <form class="navbar-form topnav-centered" role="search" method="get" action="{% url 'blogs:index' %}">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="q" value="{{ request.GET.q }}">
+                </div>
+                <button type="submit" class="btn btn-default">Search blogs</button>
+              </form>
+            {% else %}
+              <ul class="nav navbar-nav">
+                <li><a href="{% url 'account_login' %}">Sign In</a></li>
+                <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+              </ul>
+            {% endif %}
+          {% endblock %}
+
+        </div>
+
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-sm-12">
+        {% block body %}
+          {% if messages %}
+            <div>
+              <strong>Messages:</strong>
+              <ul>
+                {% for message in messages %}
+                <li>{{message}}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+          {% block content %}
+          {% endblock %}
+        {% endblock %}
+        {% block extra_body %}
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
