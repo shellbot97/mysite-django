@@ -7,7 +7,7 @@ djangorestframework==3.10.2
 djangorestframework-jwt==1.11.0
 idna==2.8
 oauthlib==3.1.0
-PyJWT==1.7.1
+PyJWT==2.4.0
 python-dotenv==0.10.3
 python-memcached==1.59
 pytz==2019.2
